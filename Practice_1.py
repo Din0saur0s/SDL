@@ -63,15 +63,19 @@ def read_file():
         my_file.close()
         print(file_contents)
 
-def delete_file():
-    print("Delete file name:")
+def delete():
+    file = input("Enter file name and extension:    ")
+    print("Delete " + file +"?\n1: Yes    AnyOther: No")
     a = input()
-    my_file = a+".txt"
-    if (os.path.isfile(my_file) == 0):
-        print("No such file")
+    if (int(a)==1):
+        if (os.path.isfile(file) == 0):
+            print("No such file")
+        else:
+            os.remove(file)
+            print(file + " deleted")
     else:
-        os.remove(my_file)
-        print(my_file + " deleted")
+        print("Aborted deletion")
+        main()
         
 def switch(file):
     if file == "1":
@@ -81,7 +85,8 @@ def switch(file):
     elif file == "3":
        read_file()
     elif file == "4":
-       delete_file()
+       delete
+       ()
     elif file == "5":
         return main()    
     main()
@@ -89,8 +94,6 @@ def switch(file):
     
 def create_json():
     jsonString=json.dumps([{'pet':{'species':'dog'}},{'pet':{'species':'house_cat','name':'Murka','age':4.5}}],separators=(',', ':'))
-
-    print(jsonString)    
     with open('test.json', 'w') as f:
         f.write(json.dumps(jsonString))
     
@@ -108,21 +111,8 @@ def read_json():
     with open("test.json", "r") as my_file:
         test_json = my_file.read()
     print(test_json)
-    pprint(test_json, width=1, compact=True)
+    pprint(test_json, width=1, compact=True)      
 
-def delete_json():
-    print("Delete test.json?\n1: Yes    AnyOther: No")
-    a = input()
-    if (int(a)==1):
-        if (os.path.isfile("test.json") == 0):
-            print("No such file")
-        else:
-            os.remove("test.json")
-            print("test.json deleted")
-    else:
-        print("Aborted deletion")
-        main()
-        
 def switch_JSON(json):
     if json == "1":
        create_json()
@@ -131,7 +121,7 @@ def switch_JSON(json):
     elif json == "3":
         read_json()
     elif json == "4":
-        delete_json()
+        delete()
     elif json == "5":
         return main()
     main()
@@ -167,20 +157,7 @@ def read_xml():
     with open('test.xml', 'r') as f:
         data = f.read()
     bs_data = BeautifulSoup(data, 'xml')
-    print(bs_data.prettify())
-    
-def delete_xml():
-    print("Delete test.xml?\n1: Yes    AnyOther: No")
-    a = input()
-    if (int(a)==1):
-        if (os.path.isfile("test.xml") == 0):
-            print("No such file")
-        else:
-            os.remove("test.xml")
-            print("test.xml deleted")
-    else:
-        print("Aborted deletion")
-        main()    
+    print(bs_data.prettify()) 
         
 def switch_XML(xml):
     if xml == "1":
@@ -190,7 +167,7 @@ def switch_XML(xml):
     elif xml == "3":
        read_xml()
     elif xml == "4":
-       delete_xml()
+       delete()
     elif xml == "5":
         return main()    
     main()
