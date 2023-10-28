@@ -1,6 +1,8 @@
 import multiprocessing
 from hashlib import sha256
 import os
+import time
+
 
 h1 = bytes().fromhex("1115dd800feaacefdf481f1f9070374a2a81e27880f187396db67958b207cbad")
 h2 = bytes().fromhex("3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b")
@@ -21,9 +23,11 @@ def brute(firstletterascii: int):
     return 0
 
 def main():
+    start = time.time()
     with multiprocessing.Pool() as p:
       #  p.map(brute, range(97, 97 + 26))
         p.map(brute, range(97, 97 + 26))
-
+    end = time.time()
+    print(f"\nЗатраченное время на подбор: {(end-start)*10**3:.03f}ms")
 if __name__ == "__main__":
     main()
